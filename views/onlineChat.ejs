@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body id="body">
+    <button class="changeMode" id="mode" >Dark Mode</button>
+
+  <h1 class="center">shadowChats.com</h1>
+  <p class="center"><i>Join ShadowChats.com and discover the beauty of conversations in the shadows.</i></p>
+  <hr>
+
+  <p class="userCount" id="user-count"><%= userCount %> users online</p>
+
+  
+  <div class="center"> chat box</div>
+  <div id="chat">
+  </div>
+
+  <div class="container">
+    <div class="form">
+        <input type="text" id="message" placeholder="Type a message" autocomplete="off" />
+        <button type="submit" id="send">Send</button>
+      </div>
+  </div>
+
+  <script>
+    const userCountDisplay = document.getElementById("user-count");
+    const chat = document.getElementById('chat');
+    const messageInput = document.getElementById('message');
+    const sendButton = document.getElementById('send');
+    const appearanceBtn =  document.getElementById('mode');
+    const body = document.getElementById("body")
+
+    const ws = new WebSocket("ws://localhost:3000");
+
+    ws.onmessage = (event) => {
+      const { type, userCount, data } = JSON.parse(event.data);
+
+      if (type === 'userCount') {
+        userCountDisplay.innerText = `${userCount} users online`;
+      }
+
+      if (type === 'history') {
+        data.forEach(addMessage);
+      }
+
+      if (type === 'message') {
+        addMessage(data);
+      }
+    };
+
+    const addMessage = (text) => {
+      const message = document.createElement('div');
+      message.classList.add("msg");
+      message.textContent = text;
+      chat.appendChild(message);
+      chat.scrollTop = chat.scrollHeight; // Auto-scroll
+    };
+
+    sendButton.addEventListener('click', () => {
+      const message = messageInput.value;
+      if (message) {
+        ws.send(message);
+        messageInput.value = ''; 
+      }
+    });
+
+    messageInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        sendButton.click();
+      }
+    });
+
+    let a = true;
+
+appearanceBtn.addEventListener('click', () => {
+  if (a) {
+    body.classList.add("darkMode");
+    body.classList.remove("lightMode");  
+    appearanceBtn.innerText = "Light Mode";
+    a = false;
+  } else {
+    body.classList.add("lightMode");
+    body.classList.remove("darkMode");  
+    appearanceBtn.innerText = "Dark Mode";
+    a = true;
+  }
+});
+
+  </script>
+</body>
+</html>
