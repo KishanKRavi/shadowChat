@@ -35,7 +35,7 @@
     const appearanceBtn =  document.getElementById('mode');
     const body = document.getElementById("body")
 
-    const ws = new WebSocket("ws://shadowchat-kv6b.onrender.com/");
+    const ws = new WebSocket("wss://shadowchat-kv6b.onrender.com/");
 
     ws.onmessage = (event) => {
       const { type, userCount, data } = JSON.parse(event.data);
