@@ -1,8 +1,10 @@
 ﻿# ShadowChat
-##Connect virtually being a shadow , in chat
+## Connect virtually being a shadow , in chat
+_______________________________
+
 [Click to view the page](https://shadowchat-kv6b.onrender.com/)
 
-#bash https://shadowchat-kv6b.onrender.com/
+```bash https://shadowchat-kv6b.onrender.com/```
 
 ## Online realtime communication with strangers
 
