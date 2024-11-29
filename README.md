@@ -4,7 +4,7 @@ _______________________________
 
 [Click to view the page](https://shadowchat-kv6b.onrender.com/)
 
-```bash https://shadowchat-kv6b.onrender.com/```
+``` https://shadowchat-kv6b.onrender.com/```
 
 ## Online realtime communication with strangers
 
